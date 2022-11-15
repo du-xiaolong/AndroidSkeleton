@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.ello.androidskeleton.activityParams.ParamsActivity
 import com.ello.androidskeleton.databinding.ActivityMainBinding
+import com.ello.androidskeleton.databinding.FragmentParamsBinding
+import com.ello.androidskeleton.fragmentParams.ParamFragmentActivity
 import com.ello.base.ktx.intentExtra
 import com.ello.base.ktx.startActivity
 
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.btnActivityParams.setOnClickListener(this::activityParamClick)
         viewBinding.btnActivityParamsWithResult.setOnClickListener(this::activityParamWithResultClick)
+        viewBinding.btnFragmentParams.setOnClickListener(this::fragmentParamClick)
     }
 
     /**
@@ -51,4 +54,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun fragmentParamClick(v: View) {
+        startActivity<ParamFragmentActivity>(
+            "param1" to 9,
+            "param2" to 10,
+            "param3" to 11,
+            "param4" to 12
+        )
+    }
+
+
+
 }
+
