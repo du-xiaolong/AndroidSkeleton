@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.ello.androidskeleton.R
 import com.ello.androidskeleton.databinding.FragmentParamsBinding
 import com.ello.base.ktx.argument
+import com.ello.base.ktx.finishWithResult
 
 
 class ParamsFragment : Fragment() {
@@ -31,6 +32,10 @@ class ParamsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.tv.text = "Fragment Params :\n param1 = $param1 \n param2 = $param2 \n param3 = $param3 \n param4 = $param4 \n"
+
+        viewBinding.btnBack.setOnClickListener {
+            finishWithResult("result" to 2023)
+        }
     }
 
     companion object {

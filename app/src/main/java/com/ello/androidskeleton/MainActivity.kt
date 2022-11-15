@@ -20,6 +20,11 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "回传参数：$it", Toast.LENGTH_SHORT).show()
     }
 
+    private val fragmentParamLauncher =
+        registerForActivityResult(ParamFragmentActivity.ParamsFragmentLauncher()) {
+            Toast.makeText(this, "回传参数：$it", Toast.LENGTH_SHORT).show()
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,7 +33,9 @@ class MainActivity : AppCompatActivity() {
         viewBinding.btnActivityParams.setOnClickListener(this::activityParamClick)
         viewBinding.btnActivityParamsWithResult.setOnClickListener(this::activityParamWithResultClick)
         viewBinding.btnFragmentParams.setOnClickListener(this::fragmentParamClick)
+        viewBinding.btnFragmentParamsWithResult.setOnClickListener(this::fragmentParamsWithResultClick)
     }
+
 
     /**
      * 跳转activity传参
@@ -63,6 +70,16 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun fragmentParamsWithResultClick(v: View) {
+        fragmentParamLauncher.launch(
+            bundleOf(
+                "param1" to 13,
+                "param2" to 14,
+                "param3" to 15,
+                "param4" to 16
+            )
+        )
+    }
 
 
 }
