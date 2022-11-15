@@ -2,7 +2,6 @@ package com.ello.base.ktx
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import androidx.core.os.bundleOf
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -17,6 +16,14 @@ fun <T> intentExtra(key: String? = null) = ActivityIntentExtraNullableProperty<T
 
 fun <T> intentExtra(key: String? = null, defaultValue: T) =
     ActivityIntentExtraProperty(key, defaultValue)
+
+inline fun <reified T> Activity.lazyIntentExtra(key: String) = lazy {
+    intent.extras?.get(key) as T?
+}
+
+fun <T> Activity.lazyIntentExtra(key: String, defaultValue: T) = lazy {
+    intent.extras?.get(key) ?: defaultValue
+}
 
 inline fun <reified T : Activity> Activity.startActivity(vararg pairs: Pair<String, Any?>) {
     startActivity(Intent(this, T::class.java).apply {
