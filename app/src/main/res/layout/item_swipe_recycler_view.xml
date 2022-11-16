@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ello.base.view.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:autoClose="true"
+    app:preview="none"
+    android:layout_height="80dp">
+
+    <TextView
+        android:id="@+id/left_menu"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/teal_200"
+        android:gravity="center"
+        android:text="LEFT"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/right_menu"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/teal_700"
+        android:gravity="center"
+        android:text="RIGHT"
+        android:textSize="18sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_main"
+            android:gravity="center"
+            android:text="item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.ello.base.view.SwipeLayout>
