@@ -57,6 +57,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
+        <Button
+            android:id="@+id/btnLauncher"
+            android:textAllCaps="false"
+            android:text="测试Launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 
 
     </LinearLayout>

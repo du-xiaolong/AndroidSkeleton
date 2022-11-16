@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ello.androidskeleton"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -12,20 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSkeleton"
         tools:targetApi="31">
-        <activity
-            android:name=".ParamFragmentActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ParamsActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -39,8 +29,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name="com.ello.androidskeleton.activityParams.ParamsActivity" />
-        <activity android:name="com.ello.androidskeleton.fragmentParams.ParamFragmentActivity" />
+        <activity android:name=".activityParams.ParamsActivity" />
+        <activity android:name=".fragmentParams.ParamFragmentActivity" />
+        <activity android:name=".launcher.Launcher2Activity" />
+        <activity android:name=".launcher.LauncherActivity" />
     </application>
 
 </manifest>

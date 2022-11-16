@@ -9,6 +9,7 @@ import com.ello.androidskeleton.activityParams.ParamsActivity
 import com.ello.androidskeleton.databinding.ActivityMainBinding
 import com.ello.androidskeleton.databinding.FragmentParamsBinding
 import com.ello.androidskeleton.fragmentParams.ParamFragmentActivity
+import com.ello.androidskeleton.launcher.LauncherActivity
 import com.ello.base.ktx.intentExtra
 import com.ello.base.ktx.startActivity
 
@@ -30,10 +31,13 @@ class MainActivity : AppCompatActivity() {
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        supportActionBar?.title = this.javaClass.simpleName
+
         viewBinding.btnActivityParams.setOnClickListener(this::activityParamClick)
         viewBinding.btnActivityParamsWithResult.setOnClickListener(this::activityParamWithResultClick)
         viewBinding.btnFragmentParams.setOnClickListener(this::fragmentParamClick)
         viewBinding.btnFragmentParamsWithResult.setOnClickListener(this::fragmentParamsWithResultClick)
+        viewBinding.btnLauncher.setOnClickListener { startActivity<LauncherActivity>() }
     }
 
 
