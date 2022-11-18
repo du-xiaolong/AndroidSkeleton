@@ -7,11 +7,10 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.ello.androidskeleton.activityParams.ParamsActivity
 import com.ello.androidskeleton.databinding.ActivityMainBinding
-import com.ello.androidskeleton.databinding.FragmentParamsBinding
+import com.ello.androidskeleton.file.FileActivity
 import com.ello.androidskeleton.fragmentParams.ParamFragmentActivity
 import com.ello.androidskeleton.launcher.LauncherActivity
 import com.ello.androidskeleton.swipeRecyclerView.SwipeRecyclerViewActivity
-import com.ello.base.ktx.intentExtra
 import com.ello.base.ktx.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         viewBinding.btnFragmentParamsWithResult.setOnClickListener(this::fragmentParamsWithResultClick)
         viewBinding.btnLauncher.setOnClickListener { startActivity<LauncherActivity>() }
         viewBinding.btnSwipeRecyclerView.setOnClickListener { startActivity<SwipeRecyclerViewActivity>() }
+        viewBinding.btnFile.setOnClickListener { startActivity<FileActivity>() }
     }
 
 

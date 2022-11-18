@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".main.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,13 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSkeleton"
         tools:targetApi="31">
-        <activity
-            android:name=".SwipeRecyclerViewActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -40,6 +34,7 @@
         <activity android:name=".launcher.Launcher2Activity" />
         <activity android:name=".launcher.LauncherActivity" />
         <activity android:name=".swipeRecyclerView.SwipeRecyclerViewActivity" />
+        <activity android:name=".file.FileActivity" />
     </application>
 
 </manifest>
