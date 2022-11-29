@@ -35,6 +35,7 @@
         <activity android:name=".swipeRecyclerView.SwipeRecyclerViewActivity" />
         <activity android:name=".file.FileActivity" />
         <activity android:name=".displayCuts.DisplayCutsActivity"  android:theme="@style/DisplayCutsModeTheme"/>
+        <activity android:name=".displayCuts.DisplayCuts2Activity" />
     </application>
 
 </manifest>

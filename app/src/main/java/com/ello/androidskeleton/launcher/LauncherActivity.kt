@@ -14,6 +14,7 @@ class LauncherActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityLauncherBinding
 
+    //启动另一个activity，回传结果
     private val startLauncher2ActivityLauncher = startActivityForResultLauncher {
         if (it.resultCode == RESULT_OK) {
             val result = it.data?.getIntExtra("params", 0) ?: 0

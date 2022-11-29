@@ -24,9 +24,6 @@ class DisplayCutsActivity : AppCompatActivity() {
         //在高版本上，必须加这句，否则横屏时，刘海区域还是白色
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-
-        BarUtils.getStatusBarHeight()
-
 //      可以用主题设置，也可以用以下代码设置。当前使用的主题设置
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 //            val layoutParams = window.attributes

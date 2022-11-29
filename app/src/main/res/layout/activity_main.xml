@@ -53,38 +53,51 @@
         </LinearLayout>
 
         <View
-            android:background="?attr/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="?attr/colorPrimary" />
 
         <Button
             android:id="@+id/btnLauncher"
-            android:textAllCaps="false"
-            android:text="测试Launcher"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="测试Launcher"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnSwipeRecyclerView"
-            android:textAllCaps="false"
-            android:text="侧滑RecyclerView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="侧滑RecyclerView"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnFile"
-            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="文件相关操作"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/btnDisplayCuts"
-            android:textAllCaps="false"
-            android:text="适配刘海屏"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/btnDisplayCuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="适配刘海屏"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnDisplayCuts2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="适配刘海屏（封装）"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
 
 
     </LinearLayout>

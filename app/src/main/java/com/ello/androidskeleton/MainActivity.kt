@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import com.ello.androidskeleton.activityParams.ParamsActivity
 import com.ello.androidskeleton.databinding.ActivityMainBinding
+import com.ello.androidskeleton.displayCuts.DisplayCuts2Activity
 import com.ello.androidskeleton.displayCuts.DisplayCutsActivity
 import com.ello.androidskeleton.file.FileActivity
 import com.ello.androidskeleton.fragmentParams.ParamFragmentActivity
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         //刘海屏适配
         viewBinding.btnDisplayCuts.setOnClickListener { startActivity<DisplayCutsActivity>() }
+        viewBinding.btnDisplayCuts2.setOnClickListener { startActivity<DisplayCuts2Activity>() }
     }
 
 
