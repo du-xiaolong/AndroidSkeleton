@@ -1,12 +1,13 @@
 package com.ello.androidskeleton
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import com.ello.androidskeleton.activityParams.ParamsActivity
 import com.ello.androidskeleton.databinding.ActivityMainBinding
+import com.ello.androidskeleton.displayCuts.DisplayCutsActivity
 import com.ello.androidskeleton.file.FileActivity
 import com.ello.androidskeleton.fragmentParams.ParamFragmentActivity
 import com.ello.androidskeleton.launcher.LauncherActivity
@@ -40,6 +41,9 @@ class MainActivity : AppCompatActivity() {
         viewBinding.btnLauncher.setOnClickListener { startActivity<LauncherActivity>() }
         viewBinding.btnSwipeRecyclerView.setOnClickListener { startActivity<SwipeRecyclerViewActivity>() }
         viewBinding.btnFile.setOnClickListener { startActivity<FileActivity>() }
+
+        //刘海屏适配
+        viewBinding.btnDisplayCuts.setOnClickListener { startActivity<DisplayCutsActivity>() }
     }
 
 
