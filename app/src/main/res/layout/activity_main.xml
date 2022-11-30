@@ -98,6 +98,25 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnParamActivities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跨activity传参"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
+                android:text="A->B->C, B finish，回传参数给A" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

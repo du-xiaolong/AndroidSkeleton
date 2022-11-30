@@ -14,7 +14,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSkeleton">
-
+        <activity
+            android:name=".CActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".BActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -34,8 +54,13 @@
         <activity android:name=".launcher.LauncherActivity" />
         <activity android:name=".swipeRecyclerView.SwipeRecyclerViewActivity" />
         <activity android:name=".file.FileActivity" />
-        <activity android:name=".displayCuts.DisplayCutsActivity"  android:theme="@style/DisplayCutsModeTheme"/>
+        <activity
+            android:name=".displayCuts.DisplayCutsActivity"
+            android:theme="@style/DisplayCutsModeTheme" />
         <activity android:name=".displayCuts.DisplayCuts2Activity" />
+        <activity android:name=".abc.AActivity" />
+        <activity android:name=".abc.BActivity" />
+        <activity android:name=".abc.CActivity" />
     </application>
 
 </manifest>
