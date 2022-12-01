@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.ello.base.ktx
 
 import android.content.Intent

@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         viewBinding.btnDisplayCuts2.setOnClickListener { startActivity<DisplayCuts2Activity>() }
 
         viewBinding.btnBroadCast.setOnClickListener { startActivity<BroadCastActivity>() }
+
+        viewBinding.btnParamActivities.setOnClickListener { startActivity<AActivity>() }
     }
 
 
