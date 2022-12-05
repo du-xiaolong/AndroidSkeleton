@@ -15,6 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSkeleton">
         <activity
+            android:name=".BroadCastActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CActivity"
             android:exported="false">
             <meta-data
@@ -61,6 +68,7 @@
         <activity android:name=".abc.AActivity" />
         <activity android:name=".abc.BActivity" />
         <activity android:name=".abc.CActivity" />
+        <activity android:name=".broadcast.BroadCastActivity" />
     </application>
 
 </manifest>
