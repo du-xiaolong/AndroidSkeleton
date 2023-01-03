@@ -124,6 +124,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <Button
+            android:id="@+id/btnAnimation"
+            android:text="动画"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 
     </LinearLayout>
 

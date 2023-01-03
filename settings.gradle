@@ -19,4 +19,3 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidSkeleton"
 include ':app'
 include ':base'
-include ':basequickadapter4'

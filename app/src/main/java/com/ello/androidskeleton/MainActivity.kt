@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import com.ello.androidskeleton.abc.AActivity
 import com.ello.androidskeleton.activityParams.ParamsActivity
+import com.ello.androidskeleton.animation.AnimationActivity
 import com.ello.androidskeleton.broadcast.BroadCastActivity
 import com.ello.androidskeleton.databinding.ActivityMainBinding
 import com.ello.androidskeleton.displayCuts.DisplayCuts2Activity
@@ -51,6 +53,11 @@ class MainActivity : AppCompatActivity() {
         viewBinding.btnBroadCast.setOnClickListener { startActivity<BroadCastActivity>() }
 
         viewBinding.btnParamActivities.setOnClickListener { startActivity<AActivity>() }
+
+        viewBinding.btnAnimation.setOnClickListener { startActivity<AnimationActivity>() }
+
+
+
     }
 
 
