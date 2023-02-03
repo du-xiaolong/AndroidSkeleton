@@ -15,6 +15,7 @@ import com.ello.androidskeleton.displayCuts.DisplayCutsActivity
 import com.ello.androidskeleton.file.FileActivity
 import com.ello.androidskeleton.fragmentParams.ParamFragmentActivity
 import com.ello.androidskeleton.launcher.LauncherActivity
+import com.ello.androidskeleton.screenRecorder.ScreenRecorderActivity
 import com.ello.androidskeleton.swipeRecyclerView.SwipeRecyclerViewActivity
 import com.ello.base.ktx.startActivity
 
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.btnAnimation.setOnClickListener { startActivity<AnimationActivity>() }
 
-
+        viewBinding.btnScreenRecord.setOnClickListener { startActivity<ScreenRecorderActivity>() }
 
     }
 
