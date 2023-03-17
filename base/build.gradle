@@ -75,10 +75,13 @@ dependencies {
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
 
     //工具
-    api 'com.blankj:utilcodex:1.31.0'
+    api 'com.blankj:utilcodex:1.31.1'
+
+    //fastjson
+    api 'com.alibaba:fastjson:1.2.79'
 
     //动态权限申请
-    api 'com.guolindev.permissionx:permissionx:1.6.4'
+    api 'com.guolindev.permissionx:permissionx:1.7.1'
 
     //webView
     api 'com.github.Justson.AgentWeb:agentweb-core:v5.0.6-androidx' // (必选)
@@ -89,7 +92,8 @@ dependencies {
     api 'com.tencent:mmkv:1.2.14'
 
     //弹框
-    api 'com.github.li-xiaojun:XPopup:2.9.11'
+    //noinspection GradleDependency
+    api 'com.github.li-xiaojun:XPopup:2.7.7'
     api 'com.github.li-xiaojun:XPopupExt:1.0.0'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

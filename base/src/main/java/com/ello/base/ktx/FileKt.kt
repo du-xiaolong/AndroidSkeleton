@@ -1,7 +1,9 @@
 package com.ello.base.ktx
 
+import android.annotation.SuppressLint
 import android.content.*
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -10,50 +12,44 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
 import android.webkit.MimeTypeMap
-import com.ello.base.BuildConfig
+import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.FileIOUtils
+import com.blankj.utilcode.util.FileUtils
+import com.ello.base.utils.AppUtils
+import okhttp3.internal.closeQuietly
+import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
-import java.time.chrono.MinguoEra
-import kotlin.math.min
 
 /**
  * @author dxl
- * @date 2022-11-18  周五
  */
 
-//fun File.saveToPublic(context: Context) {
-//    val mimeType = MimeTypeMap.getSingleton()
-//        .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(absolutePath)) ?: ""
-//    when {
-//        isVideo(mimeType) -> MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-//        isImage(mimeType) -> MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-//        else -> MediaStore.Downloads.EXTERNAL_CONTENT_URI
-//    }
-//    context.contentResolver.insert()
-//}
-
-private fun isVideo(mimeType: String) = mimeType.contains("video")
-private fun isImage(mimeType: String) = mimeType.contains("image")
-private fun isAudio(mimeType: String) = mimeType.contains("audio")
 
 /**
- * 保存文件到相册
+ * 保存文件到公共目录
  *
  * @param context
  */
 fun File.saveToMedia(context: Context) {
     val mimeType = MimeTypeMap.getSingleton()
-        .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(absolutePath)) ?: "image/png"
-
+        .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(absolutePath)) ?: "*/*"
     inputStream().saveToMedia(context, name, mimeType)
 }
 
-
+/**
+ * IO流文件保存到公共目录
+ */
 fun InputStream.saveToMedia(context: Context, fileName: String, mimeType: String? = null) {
-    val _mimeType = mimeType ?: MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileName.substringAfterLast(".")) ?: ""
+    val _mimeType = mimeType ?: MimeTypeMap.getSingleton()
+        .getMimeTypeFromExtension(fileName.substringAfterLast(".")) ?: ""
+
+    fun isVideo(mimeType: String) = mimeType.contains("video")
+    fun isImage(mimeType: String) = mimeType.contains("image")
+    fun isAudio(mimeType: String) = mimeType.contains("audio")
     val directory =
-        when{
+        when {
             isVideo(_mimeType) -> Environment.DIRECTORY_MOVIES
             isImage(_mimeType) -> Environment.DIRECTORY_DCIM
             isAudio(_mimeType) -> Environment.DIRECTORY_MUSIC
@@ -102,15 +98,15 @@ fun InputStream.saveToMedia(context: Context, fileName: String, mimeType: String
             MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
         } else if (isImage(_mimeType)) {
             MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
-        }else {
+        } else {
             MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
         }
-    }else {
+    } else {
         if (isVideo(_mimeType)) {
             MediaStore.Video.Media.EXTERNAL_CONTENT_URI
         } else if (isImage(_mimeType)) {
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        }else {
+        } else {
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         }
     }
@@ -140,37 +136,8 @@ fun InputStream.saveToMedia(context: Context, fileName: String, mimeType: String
 }
 
 /**
- * Android Q以下版本，查询媒体库中当前路径是否存在
- * @return Uri 返回null时说明不存在，可以进行图片插入逻辑
+ * 根据URI获取真实路径
  */
-private fun ContentResolver.queryMediaImage28(imagePath: String): Uri? {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) return null
-    val imageFile = File(imagePath)
-    if (imageFile.canRead() && imageFile.exists()) {
-        // 文件已存在，返回一个file://xxx的uri
-        return Uri.fromFile(imageFile)
-    }
-    // 保存的位置
-    val collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-
-    // 查询是否已经存在相同图片
-    val query = this.query(
-        collection,
-        arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA),
-        "${MediaStore.Images.Media.DATA} == ?",
-        arrayOf(imagePath), null
-    )
-    query?.use {
-        while (it.moveToNext()) {
-            val idColumn = it.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
-            val id = it.getLong(idColumn)
-            return ContentUris.withAppendedId(collection, id)
-        }
-    }
-    return null
-}
-
-
 fun getPathByUri(context: Context, uri: Uri?): String? {
     uri ?: return null
     // 以 file:// 开头的使用第三方应用打开 (open with third-party applications starting with file://)
@@ -288,6 +255,192 @@ fun getPathByUri(context: Context, uri: Uri?): String? {
         return getDataColumn(context, uri)
     }
     return getDataColumn(context, uri)
+}
+
+/**
+ * 文件大小格式化显示，比如3.5MB
+ */
+val File?.formatSize: String
+    get() = (this?.length() ?: 0L).formatSize
+
+/**
+ * 文件大小格式化显示，比如3.5MB
+ */
+val Long.formatSize: String
+    get() = ConvertUtils.byte2FitMemorySize(this, 1)
+
+/**
+ * 文件是否为视频
+ */
+val File?.isVideo: Boolean
+    get() = this?.name.isVideo
+
+/**
+ * 文件是否为图片
+ */
+val File?.isImage: Boolean
+    get() = this?.name.isImage
+
+/**
+ * 文件是否为音频
+ */
+val File?.isAudio: Boolean
+    get() = this?.name.isAudio
+
+/**
+ * 根据文件名、路径、url判断是否是声音
+ */
+val String?.isAudio: Boolean
+    get() {
+        if (isNullOrBlank()) return false
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(substringAfterLast("."))
+            ?.contains("audio") == true
+    }
+
+/**
+ * 根据文件名、路径、url判断是否是图片
+ */
+val String?.isImage: Boolean
+    get() {
+        if (isNullOrBlank()) return false
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(substringAfterLast("."))
+            ?.contains("image") == true
+    }
+
+/**
+ * 根据文件名、路径、url判断是否是视频
+ */
+val String?.isVideo: Boolean
+    get() {
+        if (isNullOrBlank()) return false
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(substringAfterLast("."))
+            ?.contains("video") == true
+    }
+
+/**
+ * 保存uri到指定的目录
+ */
+@SuppressLint("Range")
+fun copyUriToDirectory(context: Context, uri: Uri?, descDir: File?): Boolean {
+    uri ?: return false
+    descDir ?: return false
+    if (descDir.exists()) {
+        descDir.mkdirs()
+    }
+    var file = File(uri.toString())
+    if (file.exists()) {
+        return FileUtils.move(file, File(descDir, file.name))
+    }
+    if (uri.scheme == ContentResolver.SCHEME_FILE) {
+        file = uri.path?.let { File(it) } ?: return false
+        return FileUtils.move(file, File(descDir, file.name))
+    }
+    if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
+        return kotlin.runCatching {
+            val contentResolver = context.contentResolver
+            val cursor = contentResolver.query(uri, null, null, null, null)
+            var result = false
+            if (cursor != null && cursor.moveToFirst()) {
+                val displayName =
+                    cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                result = FileIOUtils.writeFileFromIS(
+                    File(descDir, displayName),
+                    contentResolver.openInputStream(uri)
+                )
+                cursor.closeQuietly()
+            }
+            result
+        }.getOrDefault(false)
+    }
+    return false
+
+}
+
+
+/**
+ * 根据uri读取文件名
+ */
+@SuppressLint("Range")
+fun getFileNameByUri(uri: Uri?): String {
+    if (uri == null) {
+        return ""
+    }
+    return kotlin.runCatching {
+        val cursor = AppUtils.appContext.contentResolver.query(uri, null, null, null, null)
+        val displayName = if (cursor != null && cursor.moveToFirst()) {
+            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        } else ""
+        cursor?.close()
+        displayName
+    }.getOrElse { "" }
+}
+
+/**
+ * 获取uri的文件大小
+ */
+@SuppressLint("Range")
+fun getFileSizeByUri(uri: Uri?): Long {
+    if (uri == null) {
+        return 0L
+    }
+    return runCatching {
+        val cursor = AppUtils.appContext.contentResolver.query(uri, null, null, null, null)
+        val size = if (cursor != null && cursor.moveToFirst()) {
+            cursor.getLong(cursor.getColumnIndex(OpenableColumns.SIZE))
+        } else 0L
+        cursor?.close()
+        size
+    }.getOrElse { 0L }
+}
+
+/**
+ * 保存bitmap
+ *
+ * @param file
+ */
+fun Bitmap.saveToFile(file: File) {
+    kotlin.runCatching {
+        val bos = BufferedOutputStream(FileOutputStream(file))
+        compress(Bitmap.CompressFormat.JPEG, 100, bos)
+        bos.flush()
+        bos.close()
+    }
+}
+
+
+
+/******************************************************* private **************************************************/
+
+
+/**
+ * Android Q以下版本，查询媒体库中当前路径是否存在
+ * @return Uri 返回null时说明不存在，可以进行图片插入逻辑
+ */
+private fun ContentResolver.queryMediaImage28(imagePath: String): Uri? {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) return null
+    val imageFile = File(imagePath)
+    if (imageFile.canRead() && imageFile.exists()) {
+        // 文件已存在，返回一个file://xxx的uri
+        return Uri.fromFile(imageFile)
+    }
+    // 保存的位置
+    val collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+
+    // 查询是否已经存在相同图片
+    val query = this.query(
+        collection,
+        arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA),
+        "${MediaStore.Images.Media.DATA} == ?",
+        arrayOf(imagePath), null
+    )
+    query?.use {
+        while (it.moveToNext()) {
+            val idColumn = it.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+            val id = it.getLong(idColumn)
+            return ContentUris.withAppendedId(collection, id)
+        }
+    }
+    return null
 }
 
 
