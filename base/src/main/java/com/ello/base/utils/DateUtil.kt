@@ -48,20 +48,31 @@ fun Date.formatTimeString() = format(TIME_FORMAT)
 /**
  * 将日期字符串解析为日期Date。
  *
- * @param dateString 要转换的日期字符串，可能为长日期、短日期、带时区的日期。
  * @param format     日期格式。
  * @return 返回转换后的日期。
  */
-fun String.parseDate(format: String = DATE_TIME_FORMAT): Date? =
-    SimpleDateFormat(format, Locale.getDefault()).parse(this, ParsePosition(0))
+fun String?.parseDate(format: String = "yyyy-MM-dd"): Date? {
+    if (this.isNullOrBlank()) return null
+    return SimpleDateFormat(format, Locale.getDefault()).parse(this, ParsePosition(0))
+}
 
 /**
  * 将日期字符串解析为日期Date(自动推断日期格式)
  *
  * @return
  */
-fun String.parseDateAuto(): Date? =
-    kotlin.runCatching { parseDate(this.getDateFormat()) }.getOrNull()
+fun String?.parseDateAuto(): Date? = this?.parseDate(getDateFormat())
+
+/**
+ * 将Date格式时间转换为字符串 yyyy-MM-dd
+ *
+ * @param format 日期格式。如："yyyy-MM-dd"
+ * @return 返回转换后的字符串，格式为yyyy-MM-dd
+ */
+fun Date?.format(format: String = "yyyy-MM-dd"): String {
+    if (this == null) return ""
+    return SimpleDateFormat(format, Locale.getDefault()).format(this)
+}
 
 /**
  * 将日期字符串格式化为可读的日期
@@ -233,6 +244,31 @@ fun Date.isSameDayTo(date: Date?): Boolean {
 }
 
 fun Date.isToday(): Boolean = isSameDayTo(Date())
+
+/**
+ * 日期添加天数
+ */
+operator fun Date.plus(days: Int): Date {
+    val instance = Calendar.getInstance()
+    instance.time = this
+    instance.add(Calendar.DAY_OF_YEAR, days)
+    return instance.time
+}
+
+/**
+ * 日期减少天数
+ */
+operator fun Date.minus(days: Int): Date = this.plus(-days)
+
+/**
+ * 获取当前时间，年月日时分秒显示
+ */
+fun getNowDateTimeString():String = Date().format("yyyy-MM-dd HH:mm:ss")
+
+/**
+ * 获取当前日期，年月日显示
+ */
+fun getNowDateString():String = Date().format("yyyy-MM-dd")
 
 
 object DateUtil {
