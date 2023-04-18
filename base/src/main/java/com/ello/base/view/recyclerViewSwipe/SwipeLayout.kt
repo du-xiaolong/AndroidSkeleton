@@ -1,4 +1,4 @@
-package com.ello.base.view
+package com.ello.base.view.recyclerViewSwipe
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -748,8 +748,8 @@ class SwipeLayout @JvmOverloads constructor(
 
         override fun onInit(parent: SwipeLayout, leftMenu: View?, rightMenu: View?) {
             this.leftMenu = leftMenu
-            leftMenu?.visibility = View.INVISIBLE
-            rightMenu?.visibility = View.INVISIBLE
+            leftMenu?.visibility = INVISIBLE
+            rightMenu?.visibility = INVISIBLE
         }
 
         override fun onLayout(menuView: View, left: Int, top: Int, right: Int, bottom: Int) {
@@ -768,8 +768,8 @@ class SwipeLayout @JvmOverloads constructor(
 
         override fun onInit(parent: SwipeLayout, leftMenu: View?, rightMenu: View?) {
             this.leftMenu = leftMenu
-            leftMenu?.visibility = View.INVISIBLE
-            rightMenu?.visibility = View.INVISIBLE
+            leftMenu?.visibility = INVISIBLE
+            rightMenu?.visibility = INVISIBLE
         }
 
         override fun onLayout(menuView: View, left: Int, top: Int, right: Int, bottom: Int) {
@@ -799,8 +799,8 @@ class SwipeLayout @JvmOverloads constructor(
 
         override fun onInit(parent: SwipeLayout, leftMenu: View?, rightMenu: View?) {
             this.leftMenu = leftMenu
-            leftMenu?.visibility = View.INVISIBLE
-            rightMenu?.visibility = View.INVISIBLE
+            leftMenu?.visibility = INVISIBLE
+            rightMenu?.visibility = INVISIBLE
         }
 
         override fun onLayout(menuView: View, left: Int, top: Int, right: Int, bottom: Int) {

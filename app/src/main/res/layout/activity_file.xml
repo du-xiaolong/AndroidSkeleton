@@ -4,47 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".file.FileActivity">
 
-    <LinearLayout
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btnSaveImageToPublic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="保存图片到DCIM" />
-
-        <Button
-            android:id="@+id/btnQueryImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="查询保存的图片" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/ivImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp" />
-
-    <Button
-        android:id="@+id/btnSaveVideoToPublic"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="保存视频到Movies" />
+        android:text="保存图片" />
 
-    <Button
-        android:id="@+id/btnSaveAudioToPublic"
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_video"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="保存声音到Music" />
+        android:text="保存视频" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存音频" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存文件" />
+
 
 
 </LinearLayout>

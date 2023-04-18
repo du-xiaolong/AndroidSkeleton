@@ -1,6 +1,5 @@
 package com.ello.base.utils
 
-import com.blankj.utilcode.util.TimeUtils
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,16 +16,6 @@ const val MONTH = "MM"
 const val TIME_FORMAT = "HH:mm:ss"
 const val TIME_FORMAT2 = "HH:mm"
 
-
-/**
- * 将Date格式时间转换为字符串 yyyy-MM-dd HH:mm:ss
- *
- * @param date   要转换的日期。
- * @param format 日期格式。如："yyyy-MM-dd"
- * @return 返回转换后的字符串，格式为yyyy-MM-dd HH:mm:ss
- */
-fun Date.format(format: String = DATE_TIME_FORMAT): String =
-    SimpleDateFormat(format, Locale.getDefault()).format(this)
 
 /**
  * 将Date日期格式时间转换为字符串 yyyy-MM-dd
@@ -263,12 +252,12 @@ operator fun Date.minus(days: Int): Date = this.plus(-days)
 /**
  * 获取当前时间，年月日时分秒显示
  */
-fun getNowDateTimeString():String = Date().format("yyyy-MM-dd HH:mm:ss")
+fun getNowDateTimeString(): String = Date().format("yyyy-MM-dd HH:mm:ss")
 
 /**
  * 获取当前日期，年月日显示
  */
-fun getNowDateString():String = Date().format("yyyy-MM-dd")
+fun getNowDateString(): String = Date().format("yyyy-MM-dd")
 
 
 object DateUtil {

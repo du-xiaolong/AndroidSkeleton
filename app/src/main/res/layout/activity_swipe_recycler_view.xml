@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ello.base.view.SwipeMenuRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ello.base.view.recyclerViewSwipe.SwipeMenuRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recyclerView"
@@ -8,4 +8,4 @@
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:context=".swipeRecyclerView.SwipeRecyclerViewActivity">
 
-</com.ello.base.view.SwipeMenuRecyclerView>
+</com.ello.base.view.recyclerViewSwipe.SwipeMenuRecyclerView>

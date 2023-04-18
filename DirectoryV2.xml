@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/base/src/main/java/com/ello/base/view/recyclerViewSwipe" title="recyclerview侧滑" />
+     <tree path="/base/src/main/java/com/ello/base/view/DeleteLinedTextView.kt" title="删除线"
+         extension="kt" />
+ </trees>

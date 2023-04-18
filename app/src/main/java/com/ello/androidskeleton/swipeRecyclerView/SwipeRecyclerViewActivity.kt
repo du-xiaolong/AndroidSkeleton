@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ello.androidskeleton.R
 import com.ello.androidskeleton.databinding.ActivitySwipeRecyclerViewBinding
-import com.ello.base.view.SwipeLayout
+import com.ello.base.view.recyclerViewSwipe.SwipeLayout
 
 class SwipeRecyclerViewActivity : AppCompatActivity() {
 

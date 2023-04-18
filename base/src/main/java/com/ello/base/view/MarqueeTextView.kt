@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 
 /**
+ * textView跑马灯效果
  * @author dxl
  */
 class MarqueeTextView : AppCompatTextView {
@@ -22,7 +23,5 @@ class MarqueeTextView : AppCompatTextView {
         ellipsize = TextUtils.TruncateAt.MARQUEE
     }
 
-    override fun isFocused(): Boolean {
-        return true
-    }
+    override fun isFocused() = true
 }

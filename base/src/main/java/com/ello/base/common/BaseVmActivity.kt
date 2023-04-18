@@ -3,6 +3,7 @@ package com.ello.base.common
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
@@ -30,6 +31,9 @@ abstract class BaseVmActivity<VM : BaseViewModel, VB : ViewBinding> :
         super.onCreate(savedInstanceState)
         lllog(this.javaClass.simpleName, "页面")
         beforeInit()
+        if (statusColor != 0) {
+            window.statusBarColor = statusColor
+        }
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         //获取泛型的类
@@ -43,6 +47,9 @@ abstract class BaseVmActivity<VM : BaseViewModel, VB : ViewBinding> :
         observe()
         init(savedInstanceState)
     }
+
+    @ColorInt
+    open val statusColor: Int = 0
 
 
     open fun beforeInit() {

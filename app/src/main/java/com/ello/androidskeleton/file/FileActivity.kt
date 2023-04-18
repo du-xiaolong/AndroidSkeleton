@@ -1,5 +1,6 @@
 package com.ello.androidskeleton.file
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -8,7 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ello.androidskeleton.databinding.ActivityFileBinding
 import com.ello.base.ktx.saveToMedia
+import com.ello.base.utils.click
+import com.ello.base.utils.file.saveToPublic
+import com.permissionx.guolindev.PermissionX
+import com.permissionx.guolindev.callback.RequestCallback
 import okhttp3.internal.closeQuietly
+import java.io.File
 
 class FileActivity : AppCompatActivity() {
 
@@ -18,45 +24,31 @@ class FileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityFileBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        viewBinding.btnSaveImageToPublic.setOnClickListener {
-            saveFile("test_image.jpg")
-        }
-        viewBinding.btnSaveVideoToPublic.setOnClickListener {
-            saveFile("test_video.mp4")
-        }
-        viewBinding.btnSaveAudioToPublic.setOnClickListener {
-            saveFile("test_audio.mp3")
-        }
-        viewBinding.btnQueryImage.setOnClickListener {
-            //todo
-            val collection =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
-                } else {
-                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+        val files = listOf(
+            "test_image.jpg",
+            "test_video.mp4",
+            "test_audio.mp3",
+            "test_file.zip"
+        )
+        listOf(
+            viewBinding.btnSaveImage,
+            viewBinding.btnSaveVideo,
+            viewBinding.btnSaveAudio,
+            viewBinding.btnSaveFile
+        ).forEachIndexed { index, materialButton ->
+            materialButton.click {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                    PermissionX.init(this).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .request { allGranted, grantedList, deniedList ->
+                            if (allGranted) {
+                                assets.open(files[index]).saveToPublic(files[index])
+                            }
+                        }
+                }else {
+                    assets.open(files[index]).saveToPublic(files[index])
                 }
-            val cursor = contentResolver.query(
-                collection,
-                arrayOf(MediaStore.Images.Media._ID),
-                "${MediaStore.Images.Media.DISPLAY_NAME} = ?",
-                arrayOf("test_image.jpg"),
-                "${MediaStore.Images.Media.DISPLAY_NAME} ASC"
-            )?:return@setOnClickListener
-            if (cursor.moveToFirst()) {
-                val id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID))
-                Log.d("查询", "onCreate: id = $id")
             }
-            cursor.closeQuietly()
         }
-    }
 
-    private fun saveFile(assetsName: String) {
-        kotlin.runCatching {
-            assets.open("test_image.jpg").saveToMedia(this, "test_image.jpg")
-        }.onFailure {
-            Toast.makeText(this, "保存失败：$it", Toast.LENGTH_SHORT).show()
-        }.onSuccess {
-            Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show()
-        }
     }
 }
