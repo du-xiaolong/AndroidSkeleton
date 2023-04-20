@@ -51,9 +51,11 @@ class ContactsActivity : BaseVmActivity<BaseViewModel, ActivityContactsBinding>(
                             Cursor.FIELD_TYPE_INTEGER -> cursor.getIntOrNull(columnIndex)
                                 ?.toString()
                             Cursor.FIELD_TYPE_STRING -> cursor.getStringOrNull(columnIndex)
-                            else -> "null"
+                            else -> null
                         }
-                        lllog("$columnName:$value")
+                        if (value != null) {
+                            lllog("$columnName:$value")
+                        }
 
                     }
 
@@ -81,7 +83,7 @@ class ContactsActivity : BaseVmActivity<BaseViewModel, ActivityContactsBinding>(
             arrayOf(contactId.toString()),
             null
         )?.use { phoneCursor ->
-            val phoneMap = mutableMapOf<Int, String>()
+            val phoneList = mutableListOf<Pair<Int, String>>()
             if (phoneCursor.moveToFirst()) {
                 do {
                     val phoneType =
@@ -89,11 +91,11 @@ class ContactsActivity : BaseVmActivity<BaseViewModel, ActivityContactsBinding>(
                     val number =
                         phoneCursor.getStringOrNull(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                     if (phoneType != null && !number.isNullOrEmpty()) {
-                        phoneMap[phoneType] = number
+                        phoneList.add(Pair(phoneType, number))
                     }
                 } while (phoneCursor.moveToNext())
             }
-            lllog(phoneMap)
+            lllog(phoneList)
         }
     }
 
