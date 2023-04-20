@@ -3,6 +3,7 @@
     package="com.ello.androidskeleton">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".main.App"
@@ -78,6 +79,7 @@
         <activity android:name=".broadcast.BroadCastActivity" />
         <activity android:name=".animation.AnimationActivity" />
         <activity android:name=".screenRecorder.ScreenRecorderActivity" />
+        <activity android:name=".contacts.ContactsActivity" />
     </application>
 
 </manifest>

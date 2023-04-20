@@ -9,6 +9,7 @@ import com.ello.androidskeleton.abc.AActivity
 import com.ello.androidskeleton.activityParams.ParamsActivity
 import com.ello.androidskeleton.animation.AnimationActivity
 import com.ello.androidskeleton.broadcast.BroadCastActivity
+import com.ello.androidskeleton.contacts.ContactsActivity
 import com.ello.androidskeleton.databinding.ActivityMainBinding
 import com.ello.androidskeleton.displayCuts.DisplayCuts2Activity
 import com.ello.androidskeleton.displayCuts.DisplayCutsActivity
@@ -58,6 +59,8 @@ class MainActivity : AppCompatActivity() {
         viewBinding.btnAnimation.setOnClickListener { startActivity<AnimationActivity>() }
 
         viewBinding.btnScreenRecord.setOnClickListener { startActivity<ScreenRecorderActivity>() }
+
+        viewBinding.btnContacts.setOnClickListener { ContactsActivity.start(this) }
 
     }
 

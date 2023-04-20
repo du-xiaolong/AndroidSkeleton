@@ -1,8 +1,6 @@
 package com.ello.base.utils.file
 
-import android.content.ContentResolver.MimeTypeInfo
 import android.content.ContentValues
-import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
